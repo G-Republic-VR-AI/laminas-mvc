@@ -1,0 +1,108 @@
+<?php
+/**
+ * @var Laminas\View\Renderer\PhpRenderer $this
+ */
+?>
+
+<div class="jumbotron">
+    <?php if (isset($this->serviceUnavailable)): ?>
+        <h1 class="display-6"><?= $this->serviceUnavailable ?></h1>
+    <?php else: ?>
+        <h1 class="display-6">Welcome to<br>Laminas MVC Skeleton Application</h1>
+
+
+
+        <p>
+            Movies List
+        </p>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
+        <?php foreach ($this->movies as $key => $movie): ?>
+            <div class="container">
+                <div class="row-cols-1 float-left">
+                    <div class="col-1">
+                        <img src="/img/cache/<?= $movie['keyArtImages'][0]['cachedImage'] ?>" width="<?= $image['w'] ?>" height="<?= $image['h'] ?>" class="d-block" alt="...">
+                    </div>            
+                </div>        
+                <div class="row-cols-1">
+                    <div class="row-cols-2">
+                        <div class="col-1 float-left">
+                            Headline:
+                        </div>            
+                        <div class="col-10 ">
+                            <?php echo $movie['headline']; ?>&nbsp;(<?php echo $movie['year']; ?>)
+                            <?php for ($i = 1; $i <= 5; $i++): ?>
+                                <span class="fa fa-star <?= ($i <= $movie['rating']) ? "checked" : ""; ?>"></span>             
+                            <?php endfor; ?>                        
+                        </div>
+                    </div>
+                    <div class="row-cols-2">
+                        <div class="col-1 float-left">
+                            Class:
+                        </div>            
+                        <div class="col-10 ">
+                            <?php echo $movie['class']; ?>
+                        </div>
+                    </div>
+                    <div class="row-cols-2">
+                        <div class="col-1 float-left">
+                            Duration:
+                        </div>            
+                        <div class="col-10 ">
+                            <?= $movie['duration'] / 60; ?>&nbsp;minutes
+                        </div>
+                    </div>                
+                    <div class="row-cols-2">
+                        <div class="col-1 float-left">
+                            Directors:
+                        </div>            
+                        <div class="col-10 ">
+                            <?php
+                            echo implode(', ', array_map(function($item) {
+                                        return $item['name'];
+                                    }, $movie['directors']));
+                            ?>
+                        </div>
+                    </div> 
+                    <div class="row-cols-2">
+                        <div class="col-1 float-left">
+                            Cast:
+                        </div>            
+                        <div class="col-10 ">
+                            <?php
+                            echo implode(', ', array_map(function($item) {
+                                        return $item['name'];
+                                    }, $movie['cast']));
+                            ?>
+                        </div>
+                    </div>                
+                    <div class="row-cols-2">
+                        <a href="view/movie-id-<?= $key ?>" class="">See more </a>
+                    </div>                    
+                </div>
+
+            </div>
+            <hr class="my-4">
+            <div class="clearfix"></div>
+        <?php endforeach; ?>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>        
+
+        <a class="btn btn-primary btn-sm" href="https://github.com/laminas" target="_blank">Check Laminas on GitHub &raquo;</a>
+    <?php endif; ?>
+</div>
